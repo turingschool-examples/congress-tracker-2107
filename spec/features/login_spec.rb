@@ -57,4 +57,29 @@ RSpec.describe "Logging In" do
     expect(page).to_not have_link("Log out")
     # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user.id)
   end 
+
+  it 'an admin gets redirected to the admin dashboard page' do 
+    admin = User.create(username: "funbucket13", password: "test", role: 1)
+
+    visit login_path
+  
+    fill_in :username, with: admin.username
+    fill_in :password, with: admin.password
+
+    click_on "Log In"
+
+    expect(current_path).to eq(admin_dashboard_path)
+  end 
+
+  it 'a default user can not access the admin dashboard path' do 
+    default_user = User.create(username: "funbucket13", password: "test")
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_user)
+
+    visit admin_dashboard_path
+
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content("You do not have access to this page.")
+  end 
+
 end

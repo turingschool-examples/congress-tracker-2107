@@ -17,7 +17,7 @@ RSpec.describe "User registration form" do
     click_on "Create User"
 
     new_user = User.last
-
+    
     expect(page).to have_content("Welcome, #{username}!")
     expect(new_user.username).to eq(username)
     expect(new_user.password_digest).to_not eq(password)
