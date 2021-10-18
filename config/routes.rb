@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/logout', to: 'sessions#destroy'
   post '/search', to: 'congress#search'
+  post '/search_state', to: 'congress#search_state'
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
