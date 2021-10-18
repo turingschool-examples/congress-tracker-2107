@@ -9,4 +9,12 @@ class CongressFacade
         member = found_members.first
         SenateMember.new(member)
     end 
+
+    def self.house_members_for_state(state)
+        house_members_data = CongressService.house_members(state)[:results]
+
+        house_members_data.map do |member_data|
+            HouseMember.new(member_data)
+        end 
+    end 
 end 
